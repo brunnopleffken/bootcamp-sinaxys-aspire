@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Katalog.ApiService/Katalog.ApiService.csproj" />
+  <Project Path="Katalog.AppHost/Katalog.AppHost.csproj" />
+  <Project Path="Katalog.ServiceDefaults/Katalog.ServiceDefaults.csproj" />
+  <Project Path="Katalog.Web/Katalog.Web.csproj" />
+</Solution>
