@@ -27,6 +27,7 @@ app.UseExceptionHandler();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference("/Docs");
 }
 
 app.MapDefaultEndpoints();
