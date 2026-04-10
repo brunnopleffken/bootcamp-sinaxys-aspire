@@ -10,5 +10,6 @@ public class Review
     // FK do filme que recebeu o review
     public required Movie Movie { get; set; }
 
+    // FK do usuário que registrou a avaliação
     public required User User { get; set; }
 }

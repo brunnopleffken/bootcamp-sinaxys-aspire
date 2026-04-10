@@ -9,6 +9,8 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
+
 // Add service defaults & Aspire client integrations.
 builder.AddServiceDefaults();
 
@@ -61,6 +63,6 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference("/Docs");
 }
 
-app.MapDefaultEndpoints();
+app.MapControllers();
 
 app.Run();
