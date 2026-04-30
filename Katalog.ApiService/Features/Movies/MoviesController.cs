@@ -9,13 +9,15 @@ namespace Katalog.ApiService.Features.Movies;
 public class MoviesController(ApplicationDbContext context) : ApplicationController
 {
     [HttpGet] // GET /movies
-    public async Task<ActionResult<List<MoviesResponse>>> Index()
+    public async Task<ActionResult<MoviesIndexResponse>> Index()
     {
         List<MoviesResponse> movies = await context.Movies
             .Select(m => new MoviesResponse(m))
             .ToListAsync();
 
-        return movies;
+        MoviesIndexResponse response = new MoviesIndexResponse(movies, movies.Count);
+
+        return response;
     }
 
     [HttpGet("{id:int}")] // GET /movies/{id}
@@ -35,6 +37,11 @@ public class MoviesController(ApplicationDbContext context) : ApplicationControl
     [HttpPost] // POST /movies
     public async Task<ActionResult> New(MovieRequest movieRequest)
     {
+        Genre? genre = context.Genres.FirstOrDefault(g => g.Id == movieRequest.Genre);
+
+        if (genre is null)
+            return BadRequest("Gênero de filme não encontrado");
+
         Movie movie = new Movie()
         {
             Title = movieRequest.Title,
@@ -43,7 +50,7 @@ public class MoviesController(ApplicationDbContext context) : ApplicationControl
             Rating = movieRequest.Rating,
             Duration = movieRequest.Duration,
             Director = movieRequest.Director,
-            Genre = movieRequest.Genre,
+            Genre = genre,
             VoteAverage = 0.0m,
             CoverImage = "https://placehold.co/600x400/EEE/31343C"
         };

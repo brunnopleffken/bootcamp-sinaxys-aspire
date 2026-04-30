@@ -27,4 +27,4 @@ public record MovieRequest(
     string Director,
 
     [Required]
-    Genre Genre);
+    int Genre);
