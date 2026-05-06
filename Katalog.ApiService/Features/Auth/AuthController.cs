@@ -16,7 +16,7 @@ public class AuthController(UserManager<User> userManager) : ApplicationControll
             return Unauthorized();
         }
 
-        AuthTokenService tokenService = new AuthTokenService(user.Email!);
+        AuthTokenService tokenService = new AuthTokenService(user.Id, user.Email!);
         string token = tokenService.GenerateToken();
 
         return Ok(new { Token = token });

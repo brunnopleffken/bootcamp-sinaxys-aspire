@@ -5,12 +5,13 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Katalog.ApiService.Services;
 
-public class AuthTokenService(string email)
+public class AuthTokenService(int userId, string email)
 {
     public string GenerateToken()
     {
         List<Claim> claims =
         [
+            new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
             new Claim(ClaimTypes.Email, email)
         ];
 
