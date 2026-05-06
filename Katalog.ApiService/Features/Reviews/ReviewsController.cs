@@ -1,5 +1,3 @@
-using System.Security.Authentication;
-using System.Security.Claims;
 using Katalog.ApiService.Data;
 using Katalog.ApiService.Entities;
 using Microsoft.AspNetCore.Authorization;

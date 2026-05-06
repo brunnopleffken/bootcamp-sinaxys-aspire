@@ -1,6 +1,5 @@
 using System.Security.Authentication;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Katalog.ApiService.Features;

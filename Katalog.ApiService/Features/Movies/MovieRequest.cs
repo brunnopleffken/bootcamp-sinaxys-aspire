@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Katalog.ApiService.Entities;
 using Katalog.ApiService.Entities.Enums;
 
 namespace Katalog.ApiService.Features.Movies;
