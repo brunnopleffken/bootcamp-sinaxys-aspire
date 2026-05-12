@@ -2,6 +2,27 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="d-flex align-items-start justify-content-between">
+    <h1 class="mb-5">Filmes em destaque</h1>
+    <a href="#" class="btn btn-primary">Adicionar novo filme</a>
+</div>
 
-Welcome to your new app.
+<div class="row gy-5">
+    @for (int i = 0; i < 10; i++)
+    {
+        <div class="col-4">
+            <div class="row">
+                <div class="col-4">
+                    <img src="https://m.media-amazon.com/images/I/81CIXJxQ3TL._AC_UF1000,1000_QL80_.jpg" class="img-fluid rounded">
+                </div>
+                <div class="col-8 d-flex flex-column">
+                    <h4 class="d-inline-block flex-grow-1">
+                        <a href="#">Star Wars Ep. IV: Uma Nova Esperança</a>
+                    </h4>
+                    <p class="lead text-secondary mb-0">2004</p>
+                    <p class="mb-0">George Lucas &middot; [][][][]</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

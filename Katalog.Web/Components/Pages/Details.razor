@@ -1,0 +1,90 @@
+@page "/detalhes"
+
+<h1 class="mb-5">Star Wars Episódio IV: Uma Nova Esperança</h1>
+
+<div class="row mb-5">
+    <div class="col-3">
+        <img src="https://m.media-amazon.com/images/I/81CIXJxQ3TL._AC_UF1000,1000_QL80_.jpg" class="img-fluid rounded">
+    </div>
+    <div class="col-9">
+        <p>
+            <strong>Diretor:</strong> George Lucas
+        </p>
+        <p>
+            <strong>Gênero:</strong> Ficção Científica
+        </p>
+        <p>
+            <strong>Data de lançamento:</strong> 18/11/1977
+        </p>
+        <p>
+            <strong>Duração:</strong> 121 minutos
+        </p>
+        <p>
+            <strong>Classificação etária:</strong> A12
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad at dolorum earum enim esse eum eveniet excepturi exercitationem facilis fugiat illum, iure laborum maxime nam nihil nisi omnis possimus quam reprehenderit repudiandae saepe unde velit voluptas voluptatibus! Animi eos iste maxime perspiciatis, quas rem vel! Asperiores blanditiis cupiditate dolor doloremque fugit libero molestias nam officia quisquam reiciendis! Cumque distinctio dolore expedita, facilis fugit maiores minima necessitatibus quod ratione repudiandae tempora temporibus! A adipisci aliquam, animi blanditiis corporis deleniti dignissimos error esse est, facere fugiat hic libero magnam magni natus non optio perspiciatis quae quaerat quo tempore vero voluptate voluptatibus?
+        </p>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>Avaliações</h4>
+    <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#add-movie">Adicionar avaliação</a>
+</div>
+
+@for (int i = 0; i < 4; i++)
+{
+    <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+            <p><strong>nome do maluco</strong> &middot; 07/05/2026, 19:01 &middot; [][][][][]</p>
+            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deserunt mollitia neque numquam, quidem quos sapiente voluptates? Aperiam aspernatur aut mollitia, perspiciatis quaerat quo quod quos rem soluta vel, vero!</p>
+        </div>
+    </div>
+}
+
+<div class="modal fade" tabindex="-1" id="add-movie">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adicionar avaliação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label for="" class="form-label">Nota</label>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            <label class="form-check-label" for="inlineRadio1">1</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <label class="form-check-label" for="inlineRadio2">2</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                            <label class="form-check-label" for="inlineRadio3">3</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
+                            <label class="form-check-label" for="inlineRadio3">4</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5">
+                            <label class="form-check-label" for="inlineRadio3">5</label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="" class="form-label">Comentários</label>
+                    <textarea name="" id="" rows="10" class="form-control" required></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Enviar avaliação</button>
+            </div>
+        </div>
+    </div>
+</div>
