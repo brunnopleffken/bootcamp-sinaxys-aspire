@@ -8,21 +8,52 @@
 </div>
 
 <div class="row gy-5">
-    @for (int i = 0; i < 10; i++)
+    @foreach (MovieDetailsResponse movie in ListOfMovies.Movies)
     {
         <div class="col-4">
             <div class="row">
                 <div class="col-4">
-                    <img src="https://m.media-amazon.com/images/I/81CIXJxQ3TL._AC_UF1000,1000_QL80_.jpg" class="img-fluid rounded">
+                    <img src="@movie.CoverImage" class="img-fluid rounded">
                 </div>
                 <div class="col-8 d-flex flex-column">
                     <h4 class="d-inline-block flex-grow-1">
-                        <a href="#">Star Wars Ep. IV: Uma Nova Esperança</a>
+                        <a href="#">@movie.Title</a>
                     </h4>
-                    <p class="lead text-secondary mb-0">2004</p>
+                    <p class="lead text-secondary mb-0">@movie.ReleaseDate.Year</p>
                     <p class="mb-0">George Lucas &middot; [][][][]</p>
                 </div>
             </div>
         </div>
     }
 </div>
+
+@code
+{
+    public MoviesResponse ListOfMovies { get; set; } = new MoviesResponse([], 0);
+
+    // função "async Task" em métodos assíncronos é igual a "void" de métodos síncronos
+    // ou seja: não pode ter return
+    protected override async Task OnInitializedAsync()
+    {
+        HttpClient client = HttpClientFactory.CreateClient("KatalogAPI");
+        MoviesResponse? response = await client.GetFromJsonAsync<MoviesResponse>("/Movies");
+
+        if (response is not null)
+        {
+            ListOfMovies = response;
+        }
+    }
+
+    // DTOs do meu JSON vindo de GET /Movies
+
+    // DTO raiz
+    public record MoviesResponse(ICollection<MovieDetailsResponse> Movies, int Count);
+
+    // DTO de cada objeto dentro do array
+    public record MovieDetailsResponse(
+        int Id,
+        string Title,
+        DateOnly ReleaseDate,
+        string CoverImage,
+        decimal VoteAverage);
+}
