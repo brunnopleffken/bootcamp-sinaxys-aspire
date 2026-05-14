@@ -9,6 +9,7 @@ public record MoviesResponse
     public DateOnly ReleaseDate { get; init; }
     public string CoverImage { get; init; }
     public decimal VoteAverage { get; init; }
+    public string Director { get; init; }
 
     public MoviesResponse(Movie m)
     {
@@ -17,5 +18,6 @@ public record MoviesResponse
         ReleaseDate = m.ReleaseDate;
         CoverImage = m.CoverImage;
         VoteAverage = m.VoteAverage;
+        Director = m.Director;
     }
 }
