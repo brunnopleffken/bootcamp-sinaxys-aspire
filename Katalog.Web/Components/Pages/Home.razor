@@ -20,7 +20,7 @@
                         <a href="#">@movie.Title</a>
                     </h4>
                     <p class="lead text-secondary mb-0">@movie.ReleaseDate.Year</p>
-                    <p class="mb-0">George Lucas &middot; [][][][]</p>
+                    <p class="mb-0">@movie.Director &middot; [][][][]</p>
                 </div>
             </div>
         </div>
@@ -55,5 +55,6 @@
         string Title,
         DateOnly ReleaseDate,
         string CoverImage,
-        decimal VoteAverage);
+        decimal VoteAverage,
+        string Director);
 }
