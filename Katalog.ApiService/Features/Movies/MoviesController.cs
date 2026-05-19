@@ -25,6 +25,7 @@ public class MoviesController(ApplicationDbContext context) : ApplicationControl
     {
         MovieResponse? movie = await context.Movies
             .Where(m => m.Id == id)
+            .Include(m => m.Genre)
             .Select(m => new MovieResponse(m))
             .FirstOrDefaultAsync();
 

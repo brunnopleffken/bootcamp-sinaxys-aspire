@@ -14,7 +14,9 @@
                 <strong>Diretor:</strong> @MovieDetails.Director
             </p>
             <p>
-                <strong>Gênero:</strong> ---
+                <strong>Gênero:</strong> <a href="/lista-por-genero?id=@MovieDetails.Genre.Id">
+                    @MovieDetails.Genre.Name
+                </a>
             </p>
             <p>
                 <strong>Data de lançamento:</strong> @MovieDetails.ReleaseDate.ToShortDateString()
@@ -128,8 +130,11 @@
         Rating Rating,
         decimal? VoteAverage,
         string? Director,
+        Genre Genre,
         DateTime CreatedAt,
         DateTime UpdatedAt);
+
+    public record Genre(int Id, string Name);
 
     // Reviews DTO
 

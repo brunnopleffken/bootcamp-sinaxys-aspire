@@ -14,6 +14,7 @@ public record MovieResponse
     public Rating Rating { get; init; }
     public decimal? VoteAverage { get; init; }
     public string? Director { get; init; }
+    public Genre Genre { get; init; }
     public DateTime CreatedAt { get; init; }
     public DateTime UpdatedAt { get; init; }
 
@@ -28,6 +29,7 @@ public record MovieResponse
         Rating = m.Rating;
         VoteAverage = m.VoteAverage;
         Director = m.Director;
+        Genre = m.Genre;
         CreatedAt = m.CreatedAt;
         UpdatedAt = m.UpdatedAt;
     }
