@@ -1,0 +1,58 @@
+@page "/adicionar"
+
+<h1 class="mb-5">Adicionar novo filme</h1>
+
+<form class="row gy-3">
+    <div class="col-12">
+        <label class="form-label">Nome do filme</label>
+        <InputText class="form-control" @bind-Value="MovieForm!.Title"/>
+    </div>
+    <div class="col-12">
+        <label class="form-label">Descrição</label>
+        <InputTextArea rows="5" class="form-control" @bind-Value="MovieForm!.Description"/>
+    </div>
+    <div class="col-6">
+        <label class="form-label">Data de lançamento</label>
+        <InputDate class="form-control" @bind-Value="MovieForm!.ReleaseDate"/>
+    </div>
+    <div class="col-6">
+        <label class="form-label">Classificação etária</label>
+        <InputSelect class="form-select" @bind-Value="MovieForm!.Rating"/>
+    </div>
+    <div class="col-6">
+        <label class="form-label">Duração do filme</label>
+        <InputDate class="form-control" @bind-Value="MovieForm!.Duration"/>
+    </div>
+    <div class="col-6">
+        <label class="form-label">Diretor do filme</label>
+        <InputText class="form-control" @bind-Value="MovieForm!.Director"/>
+    </div>
+    <div class="col-6">
+        <label class="form-label">Gênero</label>
+        <InputSelect class="form-select" @bind-Value="MovieForm!.Genre"/>
+    </div>
+    <div class="col-12">
+        <input type="submit" value="Adicionar filme" class="btn btn-primary">
+    </div>
+</form>
+
+@code
+{
+    private NewMovieRequest? MovieForm { get; set; }
+
+    protected override void OnInitialized()
+    {
+        MovieForm ??= new NewMovieRequest();
+    }
+
+    public class NewMovieRequest
+    {
+        public string? Title { get; set; }
+        public string? Description { get; set; }
+        public DateOnly? ReleaseDate { get; set; }
+        public int? Rating { get; set; }
+        public TimeOnly? Duration { get; set; }
+        public string? Director { get; set; }
+        public int? Genre { get; set; }
+    }
+}
