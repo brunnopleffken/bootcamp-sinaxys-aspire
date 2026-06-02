@@ -1,0 +1,65 @@
+@page "/login"
+@using Katalog.Web.Services
+@rendermode InteractiveServer
+@inject TokenService tokenService
+
+<h1 class="mb-5">Acesse sua conta</h1>
+
+<form action="" class="row gy-3" @onsubmit="DoLogin">
+    <div class="col-7">
+        <label for="">E-mail</label>
+        <InputText class="form-control" @bind-Value="LoginForm.Email" />
+    </div>
+    <div class="col-7">
+        <label for="">Senha</label>
+        <InputText type="password" class="form-control" @bind-Value="LoginForm.Password" />
+    </div>
+    <div class="col-12">
+        <input type="submit" value="Entrar" class="btn btn-primary">
+    </div>
+</form>
+
+@if (JwtToken is not null)
+{
+    <textarea class="form-control">@JwtToken</textarea>
+}
+
+@code
+{
+    private LoginRequest LoginForm { get; set; }
+    private string? JwtToken { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        LoginForm = new LoginRequest();
+    }
+
+    private async Task DoLogin()
+    {
+        HttpClient client = HttpClientFactory.CreateClient("KatalogAPI");
+        HttpResponseMessage response = await client.PostAsJsonAsync("/Auth", LoginForm);
+
+        if (response.IsSuccessStatusCode)
+        {
+            LoginResponse? tokenResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
+
+            if (tokenResponse is not null)
+            {
+                JwtToken = tokenResponse.Token;
+                await tokenService.SetTokenAsync(JwtToken);
+            }
+        }
+    }
+
+    // Request DTO
+
+    public class LoginRequest
+    {
+        public string? Email { get; set; }
+        public string? Password { get; set; }
+    }
+
+    // Response DTO
+
+    public record LoginResponse(string Token);
+}

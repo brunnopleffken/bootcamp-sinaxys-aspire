@@ -1,5 +1,6 @@
 using Katalog.Web;
 using Katalog.Web.Components;
+using Katalog.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,8 @@ builder.Services.AddHttpClient("KatalogAPI", client =>
     client.BaseAddress = new Uri("http://localhost:5545");
     client.Timeout = TimeSpan.FromSeconds(10);
 });
+
+builder.Services.AddScoped<TokenService>();
 
 var app = builder.Build();
 
