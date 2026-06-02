@@ -1,8 +1,17 @@
 @page "/adicionar"
+@using System.Net.Http.Headers
+@using Katalog.Web.Services
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+@inject TokenService tokenService
+
+<PageTitle>Adicionar novo filme</PageTitle>
 
 <h1 class="mb-5">Adicionar novo filme</h1>
 
-<form class="row gy-3">
+<div class="text-danger">@ErrorMessage</div>
+
+<form class="row gy-3" @onsubmit="CreateMovie" >
     <div class="col-12">
         <label class="form-label">Nome do filme</label>
         <InputText class="form-control" @bind-Value="MovieForm!.Title"/>
@@ -17,11 +26,16 @@
     </div>
     <div class="col-6">
         <label class="form-label">Classificação etária</label>
-        <InputSelect class="form-select" @bind-Value="MovieForm!.Rating"/>
+        <InputSelect class="form-select" @bind-Value="MovieForm!.Rating">
+            @foreach (var rating in Enum.GetValues(typeof(Ratings)))
+            {
+                <option value="@((int)rating)">@rating</option>
+            }
+        </InputSelect>
     </div>
     <div class="col-6">
         <label class="form-label">Duração do filme</label>
-        <InputDate class="form-control" @bind-Value="MovieForm!.Duration"/>
+        <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="MovieForm!.Duration"/>
     </div>
     <div class="col-6">
         <label class="form-label">Diretor do filme</label>
@@ -29,7 +43,15 @@
     </div>
     <div class="col-6">
         <label class="form-label">Gênero</label>
-        <InputSelect class="form-select" @bind-Value="MovieForm!.Genre"/>
+        <InputSelect class="form-select" @bind-Value="MovieForm!.Genre">
+            @if (Genres is not null)
+            {
+                @foreach (MovieGenreResponse item in Genres)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            }
+        </InputSelect>
     </div>
     <div class="col-12">
         <input type="submit" value="Adicionar filme" class="btn btn-primary">
@@ -39,11 +61,35 @@
 @code
 {
     private NewMovieRequest? MovieForm { get; set; }
+    private List<MovieGenreResponse>? Genres { get; set; }
+    private string ErrorMessage { get; set; } = string.Empty;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         MovieForm ??= new NewMovieRequest();
+
+        HttpClient client = HttpClientFactory.CreateClient("KatalogAPI");
+        Genres = await client.GetFromJsonAsync<List<MovieGenreResponse>>("/Genres");
     }
+
+    private async Task CreateMovie()
+    {
+        HttpClient client = HttpClientFactory.CreateClient("KatalogAPI");
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
+
+        HttpResponseMessage response = await client.PostAsJsonAsync("/Movies", MovieForm);
+
+        if (response.IsSuccessStatusCode)
+        {
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            ErrorMessage = await response.Content.ReadAsStringAsync();
+        }
+    }
+
+    // DTOs
 
     public class NewMovieRequest
     {
@@ -54,5 +100,19 @@
         public TimeOnly? Duration { get; set; }
         public string? Director { get; set; }
         public int? Genre { get; set; }
+    }
+
+    public record MovieGenreResponse(int Id, string Name);
+
+    // ENUMS
+
+    public enum Ratings
+    {
+        L,
+        A10,
+        A12,
+        A14,
+        A16,
+        A18
     }
 }
