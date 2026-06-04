@@ -13,4 +13,8 @@
         <ProjectReference Include="..\Katalog.Web\Katalog.Web.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Aspire.Hosting.AppHost" Version="13.3.5" />
+    </ItemGroup>
+
 </Project>
