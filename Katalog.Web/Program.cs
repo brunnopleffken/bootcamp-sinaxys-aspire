@@ -17,6 +17,8 @@ builder.Services.AddHttpClient("KatalogAPI", client =>
 {
     client.BaseAddress = new Uri("http://localhost:5545");
     client.Timeout = TimeSpan.FromSeconds(10);
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+    client.DefaultRequestHeaders.Add("User-Agent", "KatalogApp");
 });
 
 builder.Services.AddScoped<TokenService>();
